@@ -11,7 +11,7 @@ class ViewChant extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.handlePlay = this.handlePlay.bind(this);
     this.handleStop = this.handleStop.bind(this);
-    this.state = { show: false, number: '' };
+    this.state = { show: false, number: props.number };
   }
 
   componentDidUpdate() {
@@ -43,7 +43,7 @@ class ViewChant extends Component {
         <input type="text" value={this.state.number} onChange={this.handleChange} />
         <button onClick={this.handlePlay}>재생</button>
         <button onClick={this.handleStop}>정지</button>
-        {this.state.show && this.state.number ? <iframe id='sheet' src={this.controlChant.sheet(this.state.number)} style={{ border: 0, width: '100%' }} /> : null}
+        {this.state.show && this.state.number ? <iframe id='sheet' title='sheet' src={this.controlChant.sheet(this.state.number)} style={{ border: 0, width: '100%' }} /> : null}
       </div>
     );
   }
