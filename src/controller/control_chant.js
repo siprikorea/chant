@@ -1,4 +1,5 @@
 import ModelChant from '../model/model_chant.json';
+import { format, parse } from 'date-fns';
 
 const audio = new Audio();
 
@@ -9,28 +10,27 @@ class ControlChant {
         this.URL_MP3 = 'http://maria.catholic.or.kr/musicfiles/mp3/2004090';
     }
 
-    chants(date) {
-        let chantYear = String(date.getFullYear()).padStart(4, 0);
-        let chantMonth = String(date.getMonth() + 1).padStart(2, 0);
-        let chantDay = String(date.getDate()).padStart(2, 0);
-        let chantDate = `${chantYear}-${chantMonth}-${chantDay}`;
-        let result = [];
-        let chants = ModelChant[chantDate];
-        if (chants) {
-            result.push(chants.입당);
-            result.push(chants.봉헌);
-            result.push(chants.성체);
-            result.push(chants.파견);
-        } else {
-            result.push(null);
-            result.push(null);
-            result.push(null);
-            result.push(null);
-        }
-        return result;
+    getDate() {
+        // Read missa date from local storage
+        let dateString = localStorage.getItem("MISSA_DATE");
+        // Paser date string to date
+        return dateString ? parse(dateString, 'yyyy-MM-dd', new Date()) : new Date();
     }
 
-    sheet(number) {
+    setDate(date) {
+        // Set missa date to local storage
+        localStorage.setItem("MISSA_DATE", format(date, 'yyyy-MM-dd'));
+    }
+
+    getChants(date) {
+        let chantDate = format(date, 'yyyy-MM-dd');
+        return ModelChant[chantDate];
+    }
+
+    setChants(date, chants) {
+    }
+
+    getSheetSrc(number) {
         const url = this.URL_SHEET + number.padStart(3, '0');
         return url;
     }

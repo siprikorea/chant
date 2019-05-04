@@ -9,6 +9,7 @@
     "date-fns": "^2.0.0-alpha.27",
     "jquery": "^3.4.0",
     "jquery-ui": "^1.12.1",
+    "lodash": "^4.17.11",
     "material-ui-pickers": "^2.2.4",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",

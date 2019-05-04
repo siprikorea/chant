@@ -7,43 +7,43 @@ class ViewChant extends Component {
     super(props);
 
     this.controlChant = new ControlChant();
-    this.handleShow = this.handleShow.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-    this.handlePlay = this.handlePlay.bind(this);
-    this.handleStop = this.handleStop.bind(this);
-    this.state = { show: false, number: props.number };
+    this.handleShowSheet = this.handleShowSheet.bind(this);
+    this.handleChantChange = this.handleChantChange.bind(this);
+    this.handleChantPlay = this.handleChantPlay.bind(this);
+    this.handleChantStop = this.handleChantStop.bind(this);
+    this.state = { showSheet: false };
   }
 
   componentDidUpdate() {
     $('#sheet').css('height', $(window).height() + 'px');
   }
 
-  handleShow(e) {
-    this.setState((state) => ({ show: !state.show}));
+  handleShowSheet(e) {
+    this.setState((state) => ({ showSheet: !state.showSheet }));
   }
 
-  handleChange(e) {
-    this.setState({ number: e.target.value });
+  handleChantChange(e) {
+    this.props.onChange(JSON.parse(`{"${this.props.name}" : "${e.target.value}" }`));
   }
 
-  handlePlay() {
-    this.controlChant.play(this.state.number);
+  handleChantPlay() {
+    this.controlChant.play(this.props.number);
   }
 
-  handleStop() {
+  handleChantStop() {
     this.controlChant.stop();
   }
 
   render() {
-    const { name } = this.props;
+    const { name, number } = this.props;
     return (
       <div>
-        <button onClick={this.handleShow}>악보</button>
-        <div>{name}</div>
-        <input type="text" value={this.state.number} onChange={this.handleChange} />
-        <button onClick={this.handlePlay}>재생</button>
-        <button onClick={this.handleStop}>정지</button>
-        {this.state.show && this.state.number ? <iframe id='sheet' title='sheet' src={this.controlChant.sheet(this.state.number)} style={{ border: 0, width: '100%' }} /> : null}
+        <button onClick={this.handleShowSheet}>악보</button>
+        <span>{name}</span>
+        <input type="text" value={number} onChange={this.handleChantChange} />
+        <button onClick={this.handleChantPlay}>재생</button>
+        <button onClick={this.handleChantStop}>정지</button>
+        {this.state.showSheet && number ? <iframe id='sheet' title='sheet' src={this.controlChant.getSheetSrc(number)} style={{ border: 0, width: '100%' }} /> : null}
       </div>
     );
   }

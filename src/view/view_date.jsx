@@ -1,11 +1,13 @@
 import 'date-fns';
-//import koLocale from 'date-fns/locale/ko';
 import React, { Component } from 'react';
 import DateFnsUtils from '@date-io/date-fns';
 import { MuiPickersUtilsProvider, DatePicker } from 'material-ui-pickers';
 
-
 class ViewDate extends Component {
+    /**
+     * Constructor
+     * @param {object} props properties
+     */
     constructor(props) {
         super(props);
 
@@ -16,32 +18,53 @@ class ViewDate extends Component {
         this.state = { date: props.date ? props.date : new Date() };
     }
 
+    /**
+     * Date change handler
+     * @param {Date} date date
+     */
     handleDateChange(date) {
         this.setState({ date: date });
         this.props.onChange(date);
     }
 
+    /**
+     * Previous day click handler
+     */
     handlePrevClick() {
-        this.setState((state) => ({
-            date: new DateFnsUtils().addDays(state.date, -1)
-        }));
+        this.setState((state) => {
+            let date = new DateFnsUtils().addDays(state.date, -1);
+            this.props.onChange(date);
+            return { date: date };
+        });
     }
 
+    /**
+     * Today click handler
+     */
     handleTodayClick() {
         this.setState({ date: new Date() })
+        this.props.onChange(this.state.date);
     }
 
+    /**
+     * Next day click handler
+     */
     handleNextClick() {
-        this.setState((state) => ({
-            date: new DateFnsUtils().addDays(state.date, 1)
-        }));
+        this.setState((state) => {
+            let date = new DateFnsUtils().addDays(state.date, 1);
+            this.props.onChange(date);
+            return { date: date };
+        });
     }
 
+    /**
+     * Render
+     */
     render() {
         return (
             <div>
-                <MuiPickersUtilsProvider utils={DateFnsUtils} /*locale={koLocale}*/>
-                    <button onClick={this.handlePrevClick}>전날</button>
+                <button onClick={this.handlePrevClick}>전날</button>
+                <MuiPickersUtilsProvider utils={DateFnsUtils}>
                     <DatePicker
                         format='yyyy년 M월 d일'
                         margin="normal"
@@ -49,9 +72,9 @@ class ViewDate extends Component {
                         value={this.state.date}
                         onChange={this.handleDateChange}
                     />
-                    <button onClick={this.handleTodayClick}>오늘</button>
-                    <button onClick={this.handleNextClick}>다음날</button>
                 </MuiPickersUtilsProvider>
+                <button onClick={this.handleTodayClick}>오늘</button>
+                <button onClick={this.handleNextClick}>다음날</button>
             </div>
         );
     }
