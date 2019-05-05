@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ControlChant from '../controller/control_chant';
+import ViewIFrame from './view_iframe.jsx';
 import $ from 'jquery';
 
 class ViewChant extends Component {
@@ -43,7 +44,7 @@ class ViewChant extends Component {
         <input type="text" value={number} onChange={this.handleChantChange} />
         <button onClick={this.handleChantPlay}>재생</button>
         <button onClick={this.handleChantStop}>정지</button>
-        {this.state.showSheet && number ? <iframe id='sheet' title='sheet' src={this.controlChant.getSheetSrc(number)} style={{ border: 0, width: '100%' }} /> : null}
+        <ViewIFrame src={this.controlChant.getSheetSrc(number)} show={this.state.showSheet} />
       </div>
     );
   }
