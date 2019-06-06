@@ -6,7 +6,7 @@ const audio = new Audio();
 class ControlChant {
     constructor() {
         this.audio = audio;
-        this.URL_SHEET = 'http://maria.catholic.or.kr/sungga/viewImage.asp?ctxtId=2012040';
+        this.URL_SHEET = 'http://maria.catholic.or.kr/files/mp3/sungga/img/2012/2012040';
         this.URL_MP3 = 'http://maria.catholic.or.kr/musicfiles/mp3/2004090';
     }
 
@@ -31,11 +31,17 @@ class ControlChant {
     }
 
     getSheetSrc(number) {
-        const url = this.URL_SHEET + number.padStart(3, '0');
+        if (!number) {
+            return '';
+        }
+        const url = this.URL_SHEET + number.padStart(3, '0') + '.jpg';
         return url;
     }
 
     play(number) {
+        if (!number) {
+            return;
+        }
         const url = this.URL_MP3 + number.padStart(3, '0') + '.mp3';
         this.audio.src = url;
         this.audio.play();

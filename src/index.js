@@ -62,10 +62,10 @@ class App extends Component {
         return (
             <div>
                 <ViewDate date={date} onChange={this.handleDateChange} />
-                <ViewChant name='입당성가' number={chants ? chants['입당'] : ''} onChange={this.handleChantChange} />
-                <ViewChant name='봉헌성가' number={chants ? chants['봉헌'] : ''} onChange={this.handleChantChange} />
-                <ViewChant name='성체성가' number={chants ? chants['성체'] : ''} onChange={this.handleChantChange} />
-                <ViewChant name='파견성가' number={chants ? chants['파견'] : ''} onChange={this.handleChantChange} />
+                <ViewChant name='입당' number={chants ? chants['입당'] : ''} onChange={this.handleChantChange} />
+                <ViewChant name='봉헌' number={chants ? chants['봉헌'] : ''} onChange={this.handleChantChange} />
+                <ViewChant name='성체' number={chants ? chants['성체'] : ''} onChange={this.handleChantChange} />
+                <ViewChant name='파견' number={chants ? chants['파견'] : ''} onChange={this.handleChantChange} />
             </div>
         );
     }

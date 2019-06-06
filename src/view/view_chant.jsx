@@ -1,7 +1,22 @@
 import React, { Component } from 'react';
+import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
+import TextField from '@material-ui/core/TextField';
+import { withStyles } from '@material-ui/core/styles';
 import ControlChant from '../controller/control_chant';
-import ViewIFrame from './view_iframe.jsx';
+import ViewSheet from './view_sheet.jsx';
 import $ from 'jquery';
+
+const styles = theme => ({
+  button: {
+    margin: theme.spacing.unit,
+  },
+  container: {
+  },
+  textField: {
+    margin: theme.spacing.unit,
+  }
+});
 
 class ViewChant extends Component {
   constructor(props) {
@@ -36,18 +51,20 @@ class ViewChant extends Component {
   }
 
   render() {
-    const { name, number } = this.props;
+    const { classes, name, number } = this.props;
     return (
-      <div>
-        <button onClick={this.handleShowSheet}>악보</button>
-        <span>{name}</span>
-        <input type="text" value={number} onChange={this.handleChantChange} />
-        <button onClick={this.handleChantPlay}>재생</button>
-        <button onClick={this.handleChantStop}>정지</button>
-        <ViewIFrame src={this.controlChant.getSheetSrc(number)} show={this.state.showSheet} />
-      </div>
+      <Grid container justify='center' alignItems='flex-end' className={classes.container} >
+        <form noValidate autoComplete="off">
+          <Button variant='outlined' className={classes.button}>{name}</Button>
+          <TextField margin='normal' className={classes.textFiled} value={number} onChange={this.handleChantChange} />
+          <Button variant='outlined' color='primary' className={classes.button} onClick={this.handleShowSheet}>악보</Button>
+          <Button variant='outlined' color='primary' className={classes.button} onClick={this.handleChantPlay}>재생</Button>
+          <Button variant='outlined' color='secondary' className={classes.button} onClick={this.handleChantStop}>정지</Button>
+          <ViewSheet src={this.controlChant.getSheetSrc(number)} show={this.state.showSheet} />
+        </form>
+      </Grid>
     );
   }
 }
 
-export default ViewChant;
+export default withStyles(styles)(ViewChant);

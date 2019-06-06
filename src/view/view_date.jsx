@@ -1,7 +1,18 @@
 import 'date-fns';
 import React, { Component } from 'react';
+import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
+import { withStyles } from '@material-ui/core/styles';
 import DateFnsUtils from '@date-io/date-fns';
 import { MuiPickersUtilsProvider, DatePicker } from 'material-ui-pickers';
+
+const styles = theme => ({
+    button: {
+        margin: theme.spacing.unit
+    },
+    container: {
+    }
+});
 
 class ViewDate extends Component {
     /**
@@ -61,9 +72,11 @@ class ViewDate extends Component {
      * Render
      */
     render() {
+        //<button onClick={this.handleTodayClick}>오늘</button>
+        const { classes } = this.props;
         return (
-            <div>
-                <button onClick={this.handlePrevClick}>전날</button>
+            <Grid container direction='row' justify='center' alignItems='flex-end' className={classes.container} >
+                <Button variant='contained' color='primary' className={classes.button} onClick={this.handlePrevClick}>전날</Button>
                 <MuiPickersUtilsProvider utils={DateFnsUtils}>
                     <DatePicker
                         format='yyyy년 M월 d일'
@@ -73,11 +86,11 @@ class ViewDate extends Component {
                         onChange={this.handleDateChange}
                     />
                 </MuiPickersUtilsProvider>
-                <button onClick={this.handleTodayClick}>오늘</button>
-                <button onClick={this.handleNextClick}>다음날</button>
-            </div>
+                <Button variant='contained' color='secondary' className={classes.button} onClick={this.handleTodayClick}>오늘</Button>
+                <Button variant='contained' color='secondary' className={classes.button} onClick={this.handleNextClick}>다음날</Button>
+            </Grid>
         );
     }
 }
 
-export default ViewDate;
+export default withStyles(styles)(ViewDate);
