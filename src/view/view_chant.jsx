@@ -60,7 +60,7 @@ class ViewChant extends Component {
           <Button variant='outlined' color='primary' className={classes.button} onClick={this.handleShowSheet}>악보</Button>
           <Button variant='outlined' color='primary' className={classes.button} onClick={this.handleChantPlay}>재생</Button>
           <Button variant='outlined' color='secondary' className={classes.button} onClick={this.handleChantStop}>정지</Button>
-          <ViewSheet src={this.controlChant.getSheetSrc(number)} show={this.state.showSheet} />
+          <ViewSheet src={this.controlChant.getSheetSrc(number)} alt={number} show={this.state.showSheet} />
         </form>
       </Grid>
     );
